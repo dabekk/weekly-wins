@@ -12,7 +12,7 @@ st.title("CEEUR Weekly Wins")
 st.subheader("Share your weekly wins with the team and leadership!")
 
 if "weekly_wins_coll" not in st.session_state:
-    CONNECTION_STRING = "mongodb+srv://kamildabek:5dhoi9FqcLJk46QR@weekly-wins-prod.uw7cvo6.mongodb.net/?retryWrites=true&w=majority"
+    CONNECTION_STRING = "mongodb+srv://" + st.secrets.username + ":" + st.secrets.password + "@weekly-wins-prod.uw7cvo6.mongodb.net/?retryWrites=true&w=majority"
     client = MongoClient(CONNECTION_STRING)
     db = client.weekly_wins_db
     st.session_state.weekly_wins_coll = db.weekly_wins_collection
@@ -69,6 +69,6 @@ with st.form("weekly_win_form", clear_on_submit=True, border=False):
     if submitted:
         add_win(weekly_win_json)
 
-# st.subheader("Not submitted yet 😤😤😤")
-st.subheader("Who submitted already 😌🥳😍")
+# st.subheader("Not submitted yet 😤 😤 😤")
+st.subheader("Who submitted already 😌 🥳 😍")
 st.write(get_who_submitted())
