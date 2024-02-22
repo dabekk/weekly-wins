@@ -1,24 +1,19 @@
 from pymongo import MongoClient
 import streamlit as st
 from datetime import datetime, time
+from streamlit_lottie import st_lottie
+import requests
 
 st.set_page_config(
     page_title="CEEUR Weekly Wins",
     page_icon="🥇"
 )
 
-st.title("CEEUR Weekly Wins")
-
-st.subheader("Share your weekly wins with the team and leadership!")
-
-if "weekly_wins_coll" not in st.session_state:
-    CONNECTION_STRING = "mongodb+srv://" + st.secrets.username + ":" + st.secrets.password + "@weekly-wins-prod.uw7cvo6.mongodb.net/?retryWrites=true&w=majority"
-    client = MongoClient(CONNECTION_STRING)
-    db = client.weekly_wins_db
-    st.session_state.weekly_wins_coll = db.weekly_wins_collection
-
-TEAM_MEMBERS = ['Benjamin', 'Josi', 'Kamil', 'Kerstin', 'Steffi', 'Valeria', 
-                               'Daniel', 'Mieke', 'Niklas', 'Stani', 'Steph', 'Tobias']
+def load_lottie_url(url):
+    request = requests.get(url, timeout=2)
+    if request.status_code != 200:
+        return None
+    return request.json()
 
 def add_win(weekly_win_json):
     result = st.session_state.weekly_wins_coll.insert_one(weekly_win_json)
@@ -58,6 +53,30 @@ def get_who_did_not_submit():
     users_who_did_not_submit = []
 
     return users_who_did_not_submit
+
+st.title("CEEUR Weekly Wins")
+
+lottie_celebrate = load_lottie_url(
+    "https://lottie.host/6dab44db-ae63-4dd0-aab7-6f5ebd6cbb32/yz2WTpQJFR.json")
+
+with st.container():
+    left_column, right_column = st.columns(2)
+    with left_column:
+        st.subheader("")
+        st.subheader("")
+        st.subheader("")
+        st.subheader("Share your weekly wins with the team and leadership!")
+    with right_column:
+        st_lottie(lottie_celebrate, height=300)
+
+if "weekly_wins_coll" not in st.session_state:
+    CONNECTION_STRING = "mongodb+srv://" + st.secrets.username + ":" + st.secrets.password + "@weekly-wins-prod.uw7cvo6.mongodb.net/?retryWrites=true&w=majority"
+    client = MongoClient(CONNECTION_STRING)
+    db = client.weekly_wins_db
+    st.session_state.weekly_wins_coll = db.weekly_wins_collection
+
+TEAM_MEMBERS = ['Benjamin', 'Josi', 'Kamil', 'Kerstin', 'Steffi', 'Valeria', 
+                               'Daniel', 'Mieke', 'Niklas', 'Stani', 'Steph', 'Tobias']
     
 with st.form("weekly_win_form", clear_on_submit=True, border=False):
     author = st.selectbox("Select your name", TEAM_MEMBERS, help="""Who are you?""")
