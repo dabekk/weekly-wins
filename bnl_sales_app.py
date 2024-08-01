@@ -70,7 +70,8 @@ if "weekly_wins_coll" not in st.session_state:
     db = client.weekly_wins_db
     st.session_state.weekly_wins_coll = db.weekly_wins_bnl_sales
 
-TEAM_MEMBERS = ['Select Name', 'Brice', 'Jeff', 'Jovan', 'Ruud']
+TEAM_MEMBERS = ['Select Name', 'Brice', 'Christian', 'Jeff', 'Jeffrey', 'Jovan',
+                 'Karen', 'Kevin', 'Patrick', 'Ruud']
     
 with st.form("weekly_win_form", clear_on_submit=True, border=False):
     author = st.selectbox("Select your name", TEAM_MEMBERS, help="""Who are you?""")
