@@ -12,7 +12,7 @@ st.set_page_config(
 
 # Constants
 TEAM_MEMBERS = [
-    'Select Name','Eline', 'Josi', 'Kamil', 'Kerstin', 'Lucas', 'Moritz', 'Steffi', 
+    'Select Name','Eline', 'Josi', 'Jeroen', 'Kamil', 'Kerstin', 'Lucas', 'Moritz', 'Steffi', 
     'Carolin', 'Mieke', 'Nenad', 'Niklas', 'Stani', 'Tobias'
 ]
 LOTTIE_URL = "https://lottie.host/6dab44db-ae63-4dd0-aab7-6f5ebd6cbb32/yz2WTpQJFR.json"
